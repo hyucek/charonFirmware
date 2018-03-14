@@ -21,6 +21,9 @@
 #include "ota-tftp.h"
 #include "rboot-api.h"
 
+#include "taskMaster.h"
+#include "mqtt_client.h"
+
 /* TFTP client will request this image filenames from this server */
 #define TFTP_IMAGE_SERVER "192.168.1.23"
 #define TFTP_IMAGE_FILENAME1 "firmware1.bin"
@@ -271,5 +274,10 @@ void user_init(void)
 
     xTaskCreate(task1, "tsk1", 256, NULL, 2, NULL);
     xTaskCreate(task2, "tsk2", 256, NULL, 2, NULL);
+
+    
+    publish_queue = xQueueCreate(3, PUB_MSG_LEN);
+    xTaskCreate(&beat_task, "beat_task", 256, NULL, 3, NULL);
+    xTaskCreate(&mqtt_task, "mqtt_task", 1024, NULL, 4, NULL);
     //xTaskCreate(task3, "tsk3", 256, NULL, 2, NULL);
 }

@@ -1,0 +1,5 @@
+
+include/private_ssid_config.h
+build/core.a
+
+build/*
