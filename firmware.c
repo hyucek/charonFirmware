@@ -22,12 +22,18 @@
 #include "rboot-api.h"
 
 #include "taskMaster.h"
-#include "mqtt_client.h"
+#include "./include/mqtt_client.h"
 
 /* TFTP client will request this image filenames from this server */
 #define TFTP_IMAGE_SERVER "192.168.1.23"
 #define TFTP_IMAGE_FILENAME1 "firmware1.bin"
 #define TFTP_IMAGE_FILENAME2 "firmware2.bin"
+
+extern void  beat_task(void *pvParameters);
+extern void  mqtt_task(void *pvParameters);
+extern int tmCreateTask();
+
+
 
 const TickType_t dimmerDelay = 30 / portTICK_PERIOD_MS;  // Block for 500ms.
 const TickType_t infoDelay = 1000 / portTICK_PERIOD_MS;  // Block for 500ms.
@@ -280,4 +286,5 @@ void user_init(void)
     xTaskCreate(&beat_task, "beat_task", 256, NULL, 3, NULL);
     xTaskCreate(&mqtt_task, "mqtt_task", 1024, NULL, 4, NULL);
     //xTaskCreate(task3, "tsk3", 256, NULL, 2, NULL);
+    tmCreateTask();
 }

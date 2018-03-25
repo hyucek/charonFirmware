@@ -19,10 +19,11 @@
 #include <semphr.h>
 
 
+#define PUB_MSG_LEN 16
 
 extern QueueHandle_t publish_queue;
 
-static void  beat_task(void *pvParameters);
-static void  mqtt_task(void *pvParameters);
+extern void  beat_task(void *pvParameters);
+extern void  mqtt_task(void *pvParameters);
 
 #endif //_MQTT_CLIENT_H_

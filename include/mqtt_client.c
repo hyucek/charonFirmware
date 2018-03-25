@@ -11,7 +11,6 @@
 
 SemaphoreHandle_t wifi_alive;
 QueueHandle_t publish_queue;
-#define PUB_MSG_LEN 16
 
 static void  beat_task(void *pvParameters)
 {
